@@ -1,0 +1,5 @@
+:default_setup: :jcastagna
+:headers:
+  User-Agent: "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9) Gecko/2008061004 Firefox/3.0"
+  Connection: keep-alive
+  Keep-Alive: "3000"
