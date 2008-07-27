@@ -4,8 +4,8 @@ require "uri"
 require "cgi"
 require "hpricot"
 
-require "cookie"
-require "cookie_jar"
+require "cookie/cookie"
+require "cookie/cookie_jar"
 
 
 class URI::Generic
@@ -25,8 +25,8 @@ class WebSession
     @url = URI.parse(url)
     @response = nil
     @headers = {}
-    @cookies = CookieJar.new
-    @follow_redirects = false
+    @cookies = Cookie::CookieJar.new
+    @follow_redirects = true
     # TODO: @page will give access to the loaded html for general page
     # information (without needing to view source) and on-the-fly browsing:
     # web_session.page.forms["Login"].submit
@@ -117,7 +117,7 @@ class WebSession
     return if cookie_string.nil? || cookie_string.empty?
     
     puts "COOKIE: #{cookie_string}"
-    Cookie.parse(cookie_string).each{|c| @cookies.store(c) }
+    Cookie::Cookie.parse(cookie_string).each{|c| @cookies.store(c) }
   end
   
   def convert_to_uri_data(hash)
