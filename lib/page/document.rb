@@ -1,9 +1,4 @@
-require "hpricot"
-require "active_support"
-
-require "document"
-require "form"
-require "link"
+require "#{File.dirname(__FILE__)}/element"
 
 module Page
   class Document < Element

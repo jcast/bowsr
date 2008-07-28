@@ -13,13 +13,13 @@ class EventDispatcher
   
   def dispatch_event(event_name, options=nil)
     options ||= {}
+    options[:dispatcher] ||= self
     @registration[event_name].each do |event|
+      event[:object].send(event[:method], options)
       if event[:object].is_a?(EventDispatcher) && (event[:bubbles] || options[:bubbles])
-        options[:dispatcher] = self
-        event[:object].send(:dispatch_event, event_name, options)
-      else
-        options[:dispatcher] ||= self
-        event[:object].send(event[:method], options)
+        bubble_options = options.dup
+        bubble_options[:dispatcher] = self
+        event[:object].send(:dispatch_event, event_name, bubble_options)
       end
     end
   end

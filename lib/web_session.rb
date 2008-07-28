@@ -6,6 +6,7 @@ require "hpricot"
 
 require "#{File.dirname(__FILE__)}/cookies/cookie"
 require "#{File.dirname(__FILE__)}/cookies/cookie_jar"
+require "#{File.dirname(__FILE__)}/page/document"
 
 
 class URI::Generic

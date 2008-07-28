@@ -1,3 +1,8 @@
+require "hpricot"
+require "active_support"
+
+require "#{File.dirname(__FILE__)}/../event_dispatcher"
+
 module Page
   class Element < EventDispatcher
     
@@ -53,3 +58,7 @@ module Page
     
   end
 end
+
+
+require "#{File.dirname(__FILE__)}/form"
+require "#{File.dirname(__FILE__)}/link"
