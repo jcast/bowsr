@@ -1,7 +1,8 @@
 require "cgi"
-require "helpers"
+require "#{File.dirname(__FILE__)}/helpers"
+require "#{File.dirname(__FILE__)}/cookie"
 
-module Cookie
+module Cookies
   # TODO: cleanup expired cookies
   class CookieJar
   

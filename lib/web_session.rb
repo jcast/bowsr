@@ -4,8 +4,8 @@ require "uri"
 require "cgi"
 require "hpricot"
 
-require "cookie/cookie"
-require "cookie/cookie_jar"
+require "#{File.dirname(__FILE__)}/cookies/cookie"
+require "#{File.dirname(__FILE__)}/cookies/cookie_jar"
 
 
 class URI::Generic

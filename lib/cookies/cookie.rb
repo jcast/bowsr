@@ -1,8 +1,8 @@
-module Cookie
+module Cookies
   class Cookie
   
     STANDARD_ATTR = ["comment","domain","expires","max-age","path","version","secure","httponly"]
-    COOKIE_REGEXP = /[^=\s;,]+=[^;,]*[;,]?\s*((((path|version|max-age|comment|domain)=[^;,]*)|(expires=[a-zA-Z]+,[-\w\s:]+)|(secure|httponly))[;,]?\s*)+/i
+    COOKIE_REGEXP = /[^=\s;,]+=[^;,]*[;,]?\s*((((path|version|max-age|comment|domain)=[^;,]*)|(expires=[a-zA-Z]+,[-\w\s:]+)|(secure|httponly))[;,]?\s*)*/i
   
     attr_accessor :name, :content, :properties
   
@@ -14,7 +14,7 @@ module Cookie
         next unless v
         k = k.to_s.downcase
         v = parse_time(v) if k == "expires" && !v.is_a?(Time)
-        v = Time.now + Time.mktime(v.to_i) if k == "max-age"
+        v = Time.at(Time.now.to_i + v.to_i) if k == "max-age"
         @properties[k] = v
       end
     end
@@ -39,6 +39,7 @@ module Cookie
       string_arr = ["#{@name}=#{@content}"]
       @properties.each do |k,v|
         v = time_to_gmt(v) if k == "expires"
+        v = v.to_i - Time.now.to_i if k == "max-age"
         (string_arr << k) and next if v == true
         string_arr << "#{k}=#{v}" if v
       end

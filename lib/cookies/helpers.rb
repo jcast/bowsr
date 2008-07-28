@@ -1,4 +1,4 @@
-module Cookie
+module Cookies
   module CookieArray
     def to_raw
       self.collect{|cookie| cookie.to_s }.join("; ")
