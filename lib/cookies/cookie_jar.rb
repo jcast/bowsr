@@ -14,7 +14,7 @@ module Cookies
       raise(ArgumentError, "expected type Cookie, got #{cookie.class}") unless cookie.is_a? Cookie
       @store[cookie.domain] = [] unless @store[cookie.domain].is_a? Array
       @store[cookie.domain] << cookie
-      puts "STORE COOKIE: #{cookie.domain} - #{cookie.name}"
+      #puts "STORE COOKIE: #{cookie.domain} - #{cookie.name}"
     end
   
     # Returns an array of cookies

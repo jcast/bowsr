@@ -16,6 +16,7 @@ class URI::Generic
 end
 
 # TODO: request additional resources: css, img, js, etc...
+# TODO: Benchmarking: request time, itemized load times, etc...
 class WebSession
   
   attr_reader :response
