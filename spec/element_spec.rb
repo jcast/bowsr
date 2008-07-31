@@ -33,6 +33,8 @@ describe Element do
   it "should find elements by attribute value" do
     @elmt.links(:href => "http://www.google.com/intl/en/options/").length.should == 2
     @elmt.links(:class => "gb3", :href => "http://www.google.com/intl/en/options/").length.should == 1
+    link = @elmt.links(:href => "http://www.google.com/intl/en/options/")[0]
+    link['href'].should == "http://www.google.com/intl/en/options/"
   end
   
   it "should default to finding elements by id" do

@@ -1,8 +1,10 @@
 module Page
   class Link < Element
     
+    #include HttpRequestor
+    
     def follow
-      dispatch_event("follow_link", :data => href)
+      dispatch_event("#{self.request_method}_request", :url => self['href'])
     end
     
   end

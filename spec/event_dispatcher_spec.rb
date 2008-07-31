@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + "/spec_helper"
 describe EventDispatcher do
   
   before(:each) do
-    @dispatcher = EventDispatcher.new
+    @dispatcher = Object.new.extend(EventDispatcher)
     @test_object = Object.new.extend(TestObject)
   end
   
@@ -31,7 +31,7 @@ describe EventDispatcher do
   end
   
   it "should bubble events up event dispatchers when specified on event" do
-    @higher_dispatcher = EventDispatcher.new.extend(TestObject)
+    @higher_dispatcher = Object.new.extend(EventDispatcher).extend(TestObject)
     @higher_dispatcher.register_callback("load_event", @test_object)
     @dispatcher.register_callback("load_event", @higher_dispatcher, :bubbles => true)
     @dispatcher.dispatch_event("load_event")
@@ -42,7 +42,7 @@ describe EventDispatcher do
   end
   
   it "should bubble events up event dispatchers when specified on dispatch call" do
-    @higher_dispatcher = EventDispatcher.new.extend(TestObject)
+    @higher_dispatcher = Object.new.extend(EventDispatcher).extend(TestObject)
     @higher_dispatcher.register_callback("load_event", @test_object)
     @dispatcher.register_callback("load_event", @higher_dispatcher)
     @dispatcher.dispatch_event("load_event", :bubbles => true)

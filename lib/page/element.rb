@@ -4,7 +4,9 @@ require "active_support"
 require "#{File.dirname(__FILE__)}/../event_dispatcher"
 
 module Page
-  class Element < EventDispatcher
+  class Element
+    
+    include EventDispatcher
     
     def initialize(init_element)
       raise(ArgumentError, "expected type String or Hpricot, got #{init_element.class}") unless init_element.is_a?(String) || init_element.class.include?(Hpricot::Container::Trav)
@@ -67,7 +69,7 @@ module Page
       properties = ""
       hash.each_pair do |key, value|
         op = operator
-        op = value[0,2] if ["<=",">=","!="].index(value[0,2])
+        op = value[0,2] if ["<=",">=","!=","^=","$=","*="].index(value[0,2])
         op = value[0,1] if ["<",">"].index(value[0,1])
         properties << "[@#{key}#{op}'#{value}']"
       end

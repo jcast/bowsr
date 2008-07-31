@@ -1,10 +1,7 @@
-class EventDispatcher
-  
-  def initialize
-    @registration = {}
-  end
+module EventDispatcher
   
   def register_callback(event_name, object, options=nil)
+    @registration ||= {}
     options ||= {}
     options[:method_name] ||= "on_#{event_name}" unless options[:method_name]
     @registration[event_name] = [] unless @registration[event_name]
