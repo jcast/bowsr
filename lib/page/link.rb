@@ -1,10 +1,12 @@
 module Page
-  class Link < Element
+  module Link
     
-    #include HttpRequestor
+    include Element
+    include HttpRequestor
     
-    def follow
-      dispatch_event("#{self.request_method}_request", :url => self['href'])
+    def follow(request_type=nil)
+      request_type ||= self.request_method
+      dispatch_event("#{request_type}_request", :url => self['href'])
     end
     
   end
