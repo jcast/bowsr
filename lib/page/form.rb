@@ -9,13 +9,13 @@ module Page
     def submit(*options)
       request_type = (options[0].is_a?(String) && options[0]) || self.request_method
       form_values = options.last if options.last.is_a?(Hash)
-      # get and override form values
+      # get and override form values here
       self.set_values(form_values) if form_values
       dispatch_event("#{request_type}_request", :url => self['action'], :data => self.values)
     end
     
     def request_method
-      @request_method || self['method'] || "post"
+      self['method'] || "post"
     end
     
     def set_values(new_form_values)
@@ -24,6 +24,10 @@ module Page
     
     def values
       #Gets form values
+      vals_hash = {}
+      self.inputs.each do |i|
+        vals_hash
+      end
     end
     
     def info

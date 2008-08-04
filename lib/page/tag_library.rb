@@ -2,6 +2,7 @@ module Page
   module TagLibrary
     
     @@library = { 
+            :any            => "*",
             :links          => "a",
             :paragraphs     => "p",
             :images         => "img",
@@ -21,10 +22,13 @@ module Page
       return @@library[key.to_sym] || key.to_s.singularize
     end
     
-    def module_for(query)
+    def module_for(query, html=nil)
+      return unless query
       key = @@library.index(query) || query.singularize
-      key = (key && Page.const_defined?(key.to_s.singularize.camelize)) ? Page.const_get(key.to_s.singularize.camelize) : Element
-      return key
+      mod = Page.const_get(key.to_s.singularize.camelize) if (key && Page.const_defined?(key.to_s.singularize.camelize))
+      mod = module_for(match(/^<([^\s\\>]+)[>\s]*/)[1]) if html && !mod
+      mod ||= Element
+      return mod
     end
     
     def xpath_for(hash)

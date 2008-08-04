@@ -3,11 +3,11 @@ module Page
   module HttpRequestor
     
     def request_method
-      @request_method || "get"
+      self['method'] || "get"
     end
     
     def request_method=(value)
-      @request_method = value
+      self['method'] = value
     end
     
   end

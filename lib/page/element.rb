@@ -18,18 +18,15 @@ module Page
       options ||= {}
       if element.is_a?(String)
         options.merge!({:id => element})
-        element = "*"
+        element = :any
       end
-      element = "*" if element == :any
-      element = element.to_s
       
       tag_query = query_for(element)
       properties = xpath_for(options)
       properties = "##{properties}" unless properties.empty? || ["#",".","/","[","*"].index(properties[0,1])
       
       results = self.search("#{tag_query}#{properties}").collect do |r|
-        tag_query = r.to_html.match(/^<([^\s\\>]+)[>\s]*/)[1] if element == "*"
-        r.extend(module_for(tag_query))
+        r.extend(module_for(tag_query, r.to_html))
       end
       return results
     end
