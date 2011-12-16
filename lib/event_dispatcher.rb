@@ -1,5 +1,5 @@
 module EventDispatcher
-  
+
   def register_callback(event_name, object, options=nil)
     @registration ||= {}
     options ||= {}
@@ -7,7 +7,7 @@ module EventDispatcher
     @registration[event_name] = [] unless @registration[event_name]
     @registration[event_name] << {:object => object, :method => options[:method_name].to_sym, :bubbles => options[:bubbles]}
   end
-  
+
   def dispatch_event(event_name, options=nil)
     options ||= {}
     options[:dispatcher] ||= self
@@ -20,5 +20,5 @@ module EventDispatcher
       end
     end
   end
-  
+
 end
