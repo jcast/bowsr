@@ -1,7 +1,7 @@
 module Page
   module TagLibrary
-    
-    @@library = { 
+
+    @@library = {
             :any            => "*",
             :links          => "a",
             :paragraphs     => "p",
@@ -17,11 +17,11 @@ module Page
             :submit_buttons => "input[@type='submit']",
             :image_buttons  => "input[@type='image']"
           }
-          
+
     def query_for(key)
       return @@library[key.to_sym] || key.to_s.singularize
     end
-    
+
     def module_for(query, html=nil)
       return unless query
       key = @@library.index(query) || query.singularize
@@ -30,7 +30,7 @@ module Page
       mod ||= Element
       return mod
     end
-    
+
     def xpath_for(hash)
       operator = "="
       return hash.to_s unless hash.is_a? Hash
@@ -43,6 +43,6 @@ module Page
       end
       return properties
     end
-    
+
   end
 end
